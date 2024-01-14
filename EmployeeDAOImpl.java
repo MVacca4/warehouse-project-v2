@@ -1,3 +1,5 @@
+package warehouseV2;
+
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,17 +13,27 @@ public class EmployeeDAOImpl implements EmployeeDAO {
   }
 
   @Override
-  public void deleteEmployee() {
-
+  public void deleteEmployee(String name) {
+    wdb.deleteEmployee(name);
   }
 
   @Override
   public void viewEmployee() {
-
+    wdb.viewEmployees();
   }
 
   @Override
-  public void updateEmployee() {
+  public boolean updateEmployee(String name, String newField, int column) {
+    return wdb.updateEmployee(name, newField, column);
+  }
 
+  @Override
+  public boolean getEmployee(String name) {
+    return wdb.getEmployee(name);
+  }
+
+  @Override
+  public int getSize() {
+    return wdb.getSize();
   }
 }

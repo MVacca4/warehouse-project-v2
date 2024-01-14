@@ -1,3 +1,5 @@
+package warehouseV2;
+
 import java.sql.*;
 
 public class WarehouseDB {
@@ -55,7 +57,7 @@ public class WarehouseDB {
     }
   }
 
-  public String getEmployee(String name) {
+  public boolean getEmployee(String name) {
 
     try {
       String query = "select * from employees where name = ?";
@@ -64,14 +66,16 @@ public class WarehouseDB {
       ResultSet rs = prepStmt.executeQuery();
 
       while (rs.next()) {
-        String name = rs.getString("name");
+        String employeeName = rs.getString("name");
         String position = rs.getString("position");
         int salary = rs.getInt("salary");
         float hours = rs.getFloat("hours");
         System.out.println("Name: " + name + "\nPosition: " + position + "\nSalary: " + salary + "\nHours: " + hours);
       }
+      return true;
     } catch (SQLException e) {
       System.err.println(e.getMessage());
+      return false;
     }
   }
 
@@ -87,22 +91,22 @@ public class WarehouseDB {
             prepStmt.setString(2, name);
             break;
           case 2:
-            String query = "update employees set position = ? where name = ?";
-            PreparedStatement prepStmt = connect.prepareStatement(query);
-            prepStmt.setString(1, newField);
-            prepStmt.setString(2, name);
+            String query1 = "update employees set position = ? where name = ?";
+            PreparedStatement prepStmt1 = connect.prepareStatement(query1);
+            prepStmt1.setString(1, newField);
+            prepStmt1.setString(2, name);
             break;
           case 3:
-            String query = "update employees set salary = ? where name = ?";
-            PreparedStatement prepStmt = connect.prepareStatement(query);
-            prepStmt.setInt(1, Integer.parseInt(newField));
-            prepStmt.setString(2, name);
+            String query2 = "update employees set salary = ? where name = ?";
+            PreparedStatement prepStmt2 = connect.prepareStatement(query2);
+            prepStmt2.setInt(1, Integer.parseInt(newField));
+            prepStmt2.setString(2, name);
             break;
           case 4:
-            String query = "update employees set hours = ? where name = ?";
-            PreparedStatement prepStmt = connect.prepareStatement(query);
-            prepStmt.setFloat(1, Float.parseFloat(newField));
-            prepStmt.setString(2, name);
+            String query3 = "update employees set hours = ? where name = ?";
+            PreparedStatement prepStmt3 = connect.prepareStatement(query3);
+            prepStmt3.setFloat(1, Float.parseFloat(newField));
+            prepStmt3.setString(2, name);
             break;
           default:
         }
@@ -128,11 +132,13 @@ public class WarehouseDB {
         ++count;
       }
 
-      return count;
       connect.close();
+      return count;
+
 
     } catch (SQLException e) {
       System.err.println(e.getMessage());
+      return count;
     }
   }
 

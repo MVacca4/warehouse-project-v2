@@ -1,20 +1,21 @@
+package warehouseV2;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 /**
- * The base class for version 2 of the Warehouse management program.
+ * The base class for version 2 of the WarehouseMain management program.
  * @author Massimiliano Vacca
  **/ 
-public class Warehouse {
+public class WarehouseMain {
   String name = "";
   Scanner sc = new Scanner(System.in);
   List<Employee> employeeData = new ArrayList<Employee>();
-  EmployeeDAOImpl EmployeeDAO = new EmployeeDAOImpl();
+  EmployeeDAOImpl employeeDAO = new EmployeeDAOImpl();
 
   public static void main(String[] args) {
-    Warehouse wh = new Warehouse(); // Warehouse object to call methods with.
+    WarehouseMain wh = new WarehouseMain(); // WarehouseMain object to call methods with.
     boolean end = false; // False keeps program running, true ends program.
 
     // Main menu loop, continues until the user enters 0, ending the program.
@@ -66,7 +67,7 @@ public class Warehouse {
     } catch (NumberFormatException e) {hours = 0;} // Assign default value of 0.
     
     Employee employeeInfo = new Employee(name, position, salary, hours);
-    EmployeeDAOImpl.createEmployee(name, position, salary, hours);
+    employeeDAO.createEmployee(name, position, salary, hours);
     employeeData.add(employeeInfo);
     System.out.println("Employee entry created!\n-----------------------");
     wait(1500);
@@ -78,7 +79,7 @@ public class Warehouse {
 
     while (end == false) {
 
-      if (employeeData.size() == 0) {
+      if (employeeDAO.getSize() == 0) {
         System.out.println("The employee list currently has no entries. Returning you to the main menu.\n--------------------------------");
         end = true;
         wait(2000);
@@ -91,9 +92,9 @@ public class Warehouse {
         } catch (NumberFormatException e) {
           // Loop through all employee entries and delete an entry if it matches the name typed.
           for (int i = 0; i < employeeData.size(); i++) {
-            if (name.equalsIgnoreCase(employeeData.get(i).name)) {
+            if (name.equalsIgnoreCase(employeeData.get(i).getName())) {
               employeeData.remove(i);
-              wdb.deleteEmployee(name);
+              employeeDAO.deleteEmployee(employeeData.get(i).getName());
               System.out.println("Employee entry has been deleted!\n--------------------------------");
               wait(1500);
               break;
@@ -115,7 +116,7 @@ public class Warehouse {
     // For ending while loop when user has to select between seeing list of employees or choosing to update the currently selected user.
     boolean listUpdate = false;
 
-    if (wdb.getSize() == 0) {
+    if (employeeData.size() == 0) {
       System.out.println("There are no existing employee entries, returning you to the main menu.");
       dashes();
       wait(2000);
@@ -124,7 +125,7 @@ public class Warehouse {
         System.out.println("Type the name of the employee you would like information for from the following list:\n");
         wait(2000);
 
-        wdb.viewEmployees();
+        employeeDAO.viewEmployee();
 
         System.out.println("\nEnter 0 to go back to the main menu.");
         sc = new Scanner(System.in);
@@ -134,7 +135,7 @@ public class Warehouse {
           if (Integer.parseInt(name) == 0) {end = true;}
         } catch (NumberFormatException e) {
 
-          if (wdb.getEmployee(name)) {
+          if (employeeDAO.getEmployee(name)) {
             wait(1000);
             while (listUpdate == false) {
               System.out.println("\nEnter 0 to see the list of employees again, or 1 if you would like to update "
@@ -182,19 +183,19 @@ public class Warehouse {
         case 1:
           System.out.println("Please enter the new name you would like for this entry: ");
           newField = sc.nextLine();
-          wdb.updateEmployee(name, newField, 1);
+          employeeDAO.updateEmployee(name, newField, 1);
           updateLoop = true;
           break;
         case 2:
           System.out.println("Please enter the new position you would like for this entry: ");
           newField = sc.nextLine();
-          wdb.updateEmployee(name, newField, 2);
+          employeeDAO.updateEmployee(name, newField, 2);
           updateLoop = true;
           break;
         case 3:
           System.out.println("Please enter the new salary you would like for this entry: ");
           newField = sc.nextLine();
-          if (wdb.updateEmployee(name, newField, 3)) {
+          if (employeeDAO.updateEmployee(name, newField, 3)) {
             updateLoop = true;
             break;
           } else {
@@ -206,7 +207,7 @@ public class Warehouse {
         case 4:
           System.out.println("Please enter the new hours you would like for this entry: ");
           newField = sc.nextLine();
-          if (wdb.updateEmployee(name, newField, 4)) {
+          if (employeeDAO.updateEmployee(name, newField, 4)) {
             updateLoop = true;
             break;
           } else {
@@ -234,7 +235,7 @@ public class Warehouse {
 
   public void optionDisplay() {
 
-    System.out.print("Welcome to the warehouse database system. ");
+    System.out.print("Welcome to the WarehouseMain database system. ");
     System.out.println("Please type the corresponding number of your choice and hit enter:\n");
     System.out.println("0. Exit program.");
     System.out.println("1. Create new employee.");

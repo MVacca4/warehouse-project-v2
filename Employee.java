@@ -1,3 +1,4 @@
+package warehouseV2;
 
 public class Employee {
 
