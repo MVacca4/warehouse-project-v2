@@ -1,5 +1,7 @@
+import java.util.List;
 
 public interface EmployeeDAO {
+  List<String> syncToDatabase();
 	void createEmployee(String name, String position, int salary, float hours);
 	void deleteEmployee(String name);
 	void viewEmployee();

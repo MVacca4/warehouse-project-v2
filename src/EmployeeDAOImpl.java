@@ -1,6 +1,12 @@
+import java.util.List;
 
 public class EmployeeDAOImpl implements EmployeeDAO {
 	WarehouseDB wdb = new WarehouseDB();
+
+	@Override
+	public List<String> syncToDatabase() {
+	  return wdb.syncToDatabase();
+	}
 
   @Override
   public void createEmployee(String name, String position, int salary, float hours) {

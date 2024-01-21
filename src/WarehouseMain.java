@@ -15,11 +15,10 @@ public class WarehouseMain {
 
   public static void main(String[] args) {
     WarehouseMain wh = new WarehouseMain(); // WarehouseMain object to call methods with.
-    boolean end = false; // False keeps program running, true ends program.
+    boolean end = false;                    // False keeps program running, true ends program.
 
     // Main menu loop, continues until the user enters 0, ending the program.
     while (end == false) {
-
       Scanner mainSc = new Scanner(System.in);
       int choice = 0; // Holds choice for main menu.
       wh.optionDisplay(); // Display main menu options.
@@ -42,6 +41,10 @@ public class WarehouseMain {
         default:
       }
     }
+  }
+  
+  public void syncToDatabase() {
+    // CONTINUE FROM HERE
   }
 
   public void createEmployee() {

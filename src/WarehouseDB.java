@@ -1,8 +1,35 @@
 
 import java.sql.*;
+import java.util.List;
+import java.util.ArrayList;
 
 public class WarehouseDB {
   private Connection connect;
+
+  public List<String> syncToDatabase() {
+    connect();
+    List<String> empList = new ArrayList<String>();
+
+    try {
+      String query = "select * from employees";
+      PreparedStatement prepStmt = connect.prepareStatement(query);
+      ResultSet rs = prepStmt.executeQuery();
+
+      while (rs.next()) {
+        String employeeName = rs.getString("name");
+        String position = rs.getString("position");
+        int salary = rs.getInt("salary");
+        float hours = rs.getFloat("hours");
+        empList.add(employeeName + " " + position + " " + salary + " " + hours);
+      }
+      
+      connect.close();
+      return empList;
+    } catch (SQLException e) {
+      System.err.println(e.getMessage());
+      return empList;
+    }
+  }
 
   public void createEmployee(String name, String position, int salary, float hours) {
     connect();
