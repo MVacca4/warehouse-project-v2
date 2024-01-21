@@ -220,7 +220,6 @@ public class WarehouseMain {
     }
     System.out.println("Entry updated!");
     dashes();
-
   }
 
   public static void wait(int ms) {
