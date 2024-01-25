@@ -1,14 +1,14 @@
-
-import java.sql.*;
 import java.util.List;
 import java.util.ArrayList;
+import java.sql.*;
 
 public class WarehouseDB {
   private Connection connect;
 
-  public List<String> syncToDatabase() {
+  public List<Employee> syncToDatabase() {
     connect();
-    List<String> empList = new ArrayList<String>();
+    Employee emp = new Employee();
+    List<Employee> empList = new ArrayList<Employee>();
 
     try {
       String query = "select * from employees";
@@ -20,7 +20,11 @@ public class WarehouseDB {
         String position = rs.getString("position");
         int salary = rs.getInt("salary");
         float hours = rs.getFloat("hours");
-        empList.add(employeeName + " " + position + " " + salary + " " + hours);
+        emp.setName(employeeName);
+        emp.setPosition(position);
+        emp.setSalary(salary);
+        emp.setHours(hours);
+        empList.add(emp);
       }
       
       connect.close();

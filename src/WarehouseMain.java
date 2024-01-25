@@ -16,6 +16,7 @@ public class WarehouseMain {
   public static void main(String[] args) {
     WarehouseMain wh = new WarehouseMain(); // WarehouseMain object to call methods with.
     boolean end = false;                    // False keeps program running, true ends program.
+    wh.syncToDatabase();
 
     // Main menu loop, continues until the user enters 0, ending the program.
     while (end == false) {
@@ -42,9 +43,9 @@ public class WarehouseMain {
       }
     }
   }
-  
+
   public void syncToDatabase() {
-    // CONTINUE FROM HERE
+    employeeData = employeeDAO.syncToDatabase();
   }
 
   public void createEmployee() {

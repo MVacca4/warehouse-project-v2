@@ -4,7 +4,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 	WarehouseDB wdb = new WarehouseDB();
 
 	@Override
-	public List<String> syncToDatabase() {
+	public List<Employee> syncToDatabase() {
 	  return wdb.syncToDatabase();
 	}
 
