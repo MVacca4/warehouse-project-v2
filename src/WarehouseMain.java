@@ -96,8 +96,8 @@ public class WarehouseMain {
           // Loop through all employee entries and delete an entry if it matches the name typed.
           for (int i = 0; i < employeeData.size(); i++) {
             if (name.equalsIgnoreCase(employeeData.get(i).getName())) {
-              employeeData.remove(i);
               employeeDAO.deleteEmployee(employeeData.get(i).getName());
+              employeeData.remove(i);
               System.out.println("Employee entry has been deleted!\n--------------------------------");
               wait(1500);
               break;
@@ -126,7 +126,7 @@ public class WarehouseMain {
     } else {
       while (end == false) {
         System.out.println("Type the name of the employee you would like information for from the following list:\n");
-        wait(1500);
+        wait(1000);
 
         employeeDAO.viewEmployee();
 

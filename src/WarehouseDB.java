@@ -1,3 +1,4 @@
+
 import java.util.List;
 import java.util.ArrayList;
 import java.sql.*;
@@ -103,7 +104,6 @@ public class WarehouseDB {
         float hours = rs.getFloat("hours");
         System.out.println("Name: " + employeeName + "\nPosition: " + position + "\nSalary: " + salary + "\nHours: " + hours);
       }
-      connect.close();
       return true;
     } catch (SQLException e) {
       System.err.println(e.getMessage());
@@ -121,24 +121,28 @@ public class WarehouseDB {
             PreparedStatement prepStmt = connect.prepareStatement(query);
             prepStmt.setString(1, newField);
             prepStmt.setString(2, name);
+            prepStmt.executeUpdate();
             break;
           case 2:
             String query1 = "update employees set position = ? where name = ?";
             PreparedStatement prepStmt1 = connect.prepareStatement(query1);
             prepStmt1.setString(1, newField);
             prepStmt1.setString(2, name);
+            prepStmt1.executeUpdate();
             break;
           case 3:
             String query2 = "update employees set salary = ? where name = ?";
             PreparedStatement prepStmt2 = connect.prepareStatement(query2);
             prepStmt2.setInt(1, Integer.parseInt(newField));
             prepStmt2.setString(2, name);
+            prepStmt2.executeUpdate();
             break;
           case 4:
             String query3 = "update employees set hours = ? where name = ?";
             PreparedStatement prepStmt3 = connect.prepareStatement(query3);
             prepStmt3.setFloat(1, Float.parseFloat(newField));
             prepStmt3.setString(2, name);
+            prepStmt3.executeUpdate();
             break;
           default:
         }
@@ -146,7 +150,7 @@ public class WarehouseDB {
         return false;
       }
     } catch (SQLException e) {
-      System.err.println("Error interacting with database." + e.getMessage());
+      System.err.println("Error interacting with database. " + e.getMessage());
     }
     return true;
   }
