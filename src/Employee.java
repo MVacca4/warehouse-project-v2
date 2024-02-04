@@ -6,6 +6,10 @@ public class Employee {
   private int salary = 0;
   private float hours = 0;
 
+  public Employee() {
+
+  }
+
   public Employee(String name, String position, int salary, float hours) {
     this.name = name;
     this.position = position;
